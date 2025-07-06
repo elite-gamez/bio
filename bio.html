@@ -1,0 +1,221 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hutchinsan's bio</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a2d9d5c6e7.js" crossorigin="anonymous"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      position: relative;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: black;
+    }
+    video#bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.4);
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 25px;
+      padding: 2rem;
+      text-align: center;
+      width: 400px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      transition: all 0.4s ease-in-out;
+      animation: fadeIn 1s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      background: url('https://github.com/elite-gamez/Images/blob/main/n404iz39gau71.webp') no-repeat center center/cover;
+      border: 3px solid #fff;
+      box-shadow: 0 0 12px #fff;
+      transition: transform 0.3s ease;
+    }
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+    h2 {
+      margin: 0.5rem 0;
+      font-size: 1.5rem;
+    }
+    .description {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: #ccc;
+    }
+    .glow-button {
+      background: linear-gradient(to right, #ff6600, #f58422);
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .glow-button:hover {
+      box-shadow: 0 0 10px #ff7600, 0 0 20px #ff7600;
+      transform: scale(1.05);
+    }
+    .music-player {
+      background: rgba(255, 255, 255, 0.05);
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: inset 0 0 8px #000;
+    }
+    .music-player img {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    .music-info {
+      flex-grow: 1;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+    .progress-bar {
+      background: #000;
+      height: 8px;
+      width: 100%;
+      margin-top: 0.5rem;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 0 6px #000, 0 0 4px #fff inset;
+      position: relative;
+    }
+    .progress {
+      background: linear-gradient(to right, #ffffff, #888888);
+      height: 100%;
+      width: 0%;
+      transition: width 0.5s ease-in-out;
+      box-shadow: inset 0 0 6px #fff;
+    }
+    .footer-icons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 1.5rem;
+    }
+    .footer-icons i {
+      font-size: 1.5rem;
+      color: white;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .footer-icons i:hover {
+      color: #ff0077;
+      transform: scale(1.2);
+    }
+    .play-btn {
+      font-size: 1.2rem;
+      color: white;
+      background: none;
+      border: none;
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+    .play-btn i {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="bg-video" loop>
+    <source src="https://cdn.jsdelivr.net/gh/elite-gamez/music@main/Juice%20WRLD%20-%20Robbery%20(Official%20Music%20Video).mp4" type="video/mp4">
+  </video>
+
+  <div class="card">
+    <div class="avatar"></div>
+    <h2>Hutchinsan</h2>
+    <p class="description">i made the best google site, elite gamez</p>
+    <button class="glow-button" onclick="window.open('https://discord.gg/JKeJjpcPPP', '_blank')">Join Discord Server</button>
+
+    <div class="music-player">
+      <img src="https://cdn.jsdelivr.net/gh/elite-gamez/Images@main/download%20(1).jpeg" alt="Album Art">
+      <div class="music-info">
+        <strong>Juice WRLD - Robbery</strong><br>
+        <small>Official Music Video</small>
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+          <button id="playToggle" class="play-btn">
+            <i id="playIcon" class="fas fa-pause"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-icons">
+      <i class="fas fa-gamepad"></i>
+      <i class="fas fa-headphones"></i>
+      <i class="fas fa-globe"></i>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('bg-video');
+    const playToggle = document.getElementById('playToggle');
+    const playIcon = document.getElementById('playIcon');
+    const progress = document.getElementById('progress');
+
+    video.volume = 1; // Unmute if desired
+
+    playToggle.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playIcon.classList.remove('fa-play');
+        playIcon.classList.add('fa-pause');
+      } else {
+        video.pause();
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+      }
+    });
+
+    video.addEventListener('timeupdate', () => {
+      const percent = (video.currentTime / video.duration) * 100;
+      progress.style.width = percent + '%';
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      video.play();
+    });
+  </script>
+</body>
+</html>
